@@ -2,8 +2,8 @@
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-// import store from './store'
-import { currentUser } from './store' // import getter
+import store from './store'
+// import { currentUser } from './store' // import getter
 </script>
 
 <template>
