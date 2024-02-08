@@ -1,13 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import LoginPage from '../views/LoginPage.vue' // Import from views folder
+
+// protected route
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // redirect root to login page
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      redirect: '/login'
+    },
+    // add login route
+    {
+      path: '/login',
+      component: LoginPage
+    },
+    // protected route with requiresAuth flag
+    {
+      path: '/home',
+      component: HomeView,
+      meta: { requiresAuth: true } // flag for authentication check
     },
     {
       path: '/about',
@@ -18,6 +32,15 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     }
   ]
+})
+
+// navigation guard to check authentication
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !auth.currentUser) {
+    next('/login') // redirect to login if not authenticatrd
+  } else {
+    next();
+  }
 })
 
 export default router
