@@ -4,6 +4,8 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import store from './store'
 // import { currentUser } from './store' // import getter
+
+// let currentUser = store.getters.currentUser
 </script>
 
 <template>
@@ -17,10 +19,10 @@ import store from './store'
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
 
-        <span v-if="!currentUser">
+        <span v-if="!store.getters.currentUser">
           <RouterLink to="/login">Login</RouterLink>
         </span>
-        <span v-if="currentUser">
+        <span v-if="store.getters.currentUser">
           <RouterLink to="/profile">Profile</RouterLink>
         </span>
       </nav>
