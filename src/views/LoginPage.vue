@@ -26,8 +26,10 @@ export default {
             try {
                 const userCredential = await auth.signInWithEmailAndPassword(this.email, this.password);
 
-                // Handle successful login (e.g., redirect to home page)
-                console.log('Logged in successfully:', userCredential.user); 
+                // Handle successful login (store user state, redirect to home page)
+                this.$store.commit('setUser', userCredential.user)
+                this.$router.push('/') // redirect to home page
+                // console.log('Logged in successfully:', userCredential.user); 
             } catch (error) {
                 this.error = error.message;
             }

@@ -1,6 +1,9 @@
 <script setup>
+import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+// import store from './store'
+import { currentUser } from './store' // import getter
 </script>
 
 <template>
@@ -13,11 +16,20 @@ import HelloWorld from './components/HelloWorld.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+
+        <span v-if="!currentUser">
+          <RouterLink to="/login">Login</RouterLink>
+        </span>
+        <span v-if="currentUser">
+          <RouterLink to="/profile">Profile</RouterLink>
+        </span>
       </nav>
     </div>
   </header>
 
   <RouterView />
+
+  <footer v-if="user"></footer>
 </template>
 
 <style scoped>
