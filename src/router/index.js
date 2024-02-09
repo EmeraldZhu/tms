@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { auth } from '../firebase'
 import LoginPage from '../views/LoginPage.vue' // Import from views folder
 import Register from '../views/Register.vue'
 
