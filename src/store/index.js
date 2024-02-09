@@ -1,22 +1,24 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import { auth } from '../firebase'
-// import { firestore } from 'firebase/firestore'
+import { createApp } from 'vue';
+import { createStore } from 'vuex';
+import { auth } from '../firebase';
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-    state: {
-        user: null
+// Create a new store instance.
+const store = createStore({
+    state() {
+        return {
+            user: null
+        };
     },
     mutations: {
         setUser(state, user) {
-            state.user = user
+            state.user = user;
         }
     },
     getters: {
         currentUser: state => {
-            return auth.currentUser // retrieve from firebase auth
+            return auth.currentUser; // retrieve from firebase auth
         }
     }
-})
+});
+
+export default store;

@@ -1,12 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue' // Make sure to import `computed` here
+import { useStore } from 'vuex'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import store from './store'
-// import { currentUser } from './store' // import getter
 
-// let currentUser = store.getters.currentUser
+const store = useStore()
+const currentUser = computed(() => store.getters.currentUser)
 </script>
+
 
 <template>
   <header>
