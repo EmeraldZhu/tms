@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '../views/LoginPage.vue' // Import from views folder
+import Register from '../views/Register.vue'
 
 // protected route
 import HomeView from '../views/HomeView.vue'
@@ -16,6 +17,11 @@ const router = createRouter({
     {
       path: '/login',
       component: LoginPage
+    },
+    // add register router
+    {
+      path: '/register',
+      component: () => import('../views/Register.vue')
     },
     // protected route with requiresAuth flag
     {
