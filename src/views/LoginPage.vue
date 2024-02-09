@@ -9,6 +9,9 @@
             <input type="password" v-model="password" placeholder="Password">
             <button type="submit">Login</button>
         </form>
+        <p>
+            Don't have an account? <RouterLink to="/register">Register</RouterLink>
+        </p>
     </div>
 </template>
 
