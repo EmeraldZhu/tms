@@ -13,8 +13,10 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 const auth = getAuth();
 
@@ -23,13 +25,15 @@ export default {
         const email = ref('');
         const password = ref('');
         const error = ref(null);
+        const store = useStore(); // access Vuex Store
+        const router = useRouter(); // access Vue Router
 
         const register = async () => {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
                 // Handle successful registration (store user state, redirect to home page)
-                this.$store.commit('setUser', userCredential.user);
-                this.$router.push('/'); // redirect to home page
+                store.commit('setUser', userCredential.user);
+                router.push('/'); // redirect to home page
             } catch (err) {
                 error.value = err.message;
             }
