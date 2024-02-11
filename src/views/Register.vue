@@ -13,29 +13,34 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const auth = getAuth();
 
 export default {
-    data() {
-        return {
-            email: '',
-            password: '',
-            error: null
-        };
-    },
-    methods: {
-        async register() {
+    setup() {
+        const email = ref('');
+        const passsword = ref('');
+        const error = ref(null);
+
+        const register = async () => {
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
+                const userCredential = await createUserWithEmailAndPassword(auth, email.value, passsword.value);
                 // Handle successful registration (store user state, redirect to home page)
-                this.$store.commit('setUser', userCredential.user)
-                this.$router.push('/') // redirect to home page
-            } catch (error) {
-                this.error = error.message;
+                this.$store.commit('setUser', userCredential.user);
+                this.$router.push('/'); // redirect to home page
+            } catch (err) {
+                error.value = err.message;
             }
-        }
+        };
+
+        return {
+            email,
+            passsword,
+            error,
+            register
+        };
     }
 }
 </script>
