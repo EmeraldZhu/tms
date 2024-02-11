@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div class="container">
         <h2>Register</h2>
-        <form @submit.prevent="register">
-            <div v-if="error">
+        <form @submit.prevent="register" class="form">
+            <div v-if="error" class="error">
                 <p>{{ error }}</p>
             </div>
-            <input type="email" v-model="email" placeholder="Email">
-            <input type="password" v-model="password" placeholder="Password">
-            <button type="submit">Register</button>
+            <input type="email" v-model="email" placeholder="Email" class="input">
+            <input type="password" v-model="password" placeholder="Password" class="input">
+            <button type="submit" class="button">Register</button>
         </form>
     </div>
 </template>
