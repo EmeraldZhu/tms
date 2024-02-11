@@ -11,8 +11,8 @@ This project is a Tenant Management System (TMS) that allows landlords to manage
 
 ## Setup and Installation
 
-1. Clone the repository: `git clone https://github.com/EmeraldZhu/your-repo-name.git`
-2. Navigate into the directory: `cd your-repo-name`
+1. Clone the repository: `git clone https://github.com/EmeraldZhu/4J-tms.git`
+2. Navigate into the directory: `cd 4J-tms`
 3. Install dependencies: `npm install`
 4. Start the server: `npm run serve`
 
