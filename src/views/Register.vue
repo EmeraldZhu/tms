@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { auth } from '../firebase';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default {
     data() {
@@ -26,7 +26,7 @@ export default {
     methods: {
         async register() {
             try {
-                const userCredential = await auth.createUserWithEmailAndPassword(this.email, this.password);
+                const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
                 // Handle successful registration (store user state, redirect to home page)
                 this.$store.commit('setUser', userCredential.user)
                 this.$router.push('/') // redirect to home page
