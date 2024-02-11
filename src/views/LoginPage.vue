@@ -1,15 +1,15 @@
 <template>
-    <div>
+    <div class="container">
         <h2>Login</h2>
-        <form @submit.prevent="login">
-            <div v-if="error">
+        <form @submit.prevent="login" class="form">
+            <div v-if="error" class="error">
                 <p>{{ error }}</p>
             </div>
-            <input type="email" v-model="email" placeholder="Email">
-            <input type="password" v-model="password" placeholder="Password">
-            <button type="submit">Login</button>
+            <input type="email" v-model="email" placeholder="Email" class="input">
+            <input type="password" v-model="password" placeholder="Password" class="input">
+            <button type="submit" class="button">Login</button>
         </form>
-        <p>
+        <p class="register-link">
             Don't have an account? <RouterLink to="/register">Register</RouterLink>
         </p>
     </div>
