@@ -26,7 +26,7 @@ export default {
 
         const register = async () => {
             try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email.value, passsword.value);
+                const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
                 // Handle successful registration (store user state, redirect to home page)
                 this.$store.commit('setUser', userCredential.user);
                 this.$router.push('/'); // redirect to home page
