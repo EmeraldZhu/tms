@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue' // Make sure to import `computed` here
 import { useStore } from 'vuex'
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 
 const store = useStore()
 const currentUser = computed(() => store.getters.currentUser)
@@ -12,21 +11,17 @@ const currentUser = computed(() => store.getters.currentUser)
   <header class="header">
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <nav class="nav">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
 
-      <nav class="nav">
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-
-        <span v-if="!store.getters.currentUser">
-          <RouterLink to="/login">Login</RouterLink>
-        </span>
-        <span v-if="store.getters.currentUser">
-          <RouterLink to="/profile">Profile</RouterLink>
-        </span>
-      </nav>
-    </div>
+      <span v-if="!store.getters.currentUser">
+        <RouterLink to="/login">Login</RouterLink>
+      </span>
+      <span v-if="store.getters.currentUser">
+        <RouterLink to="/profile">Profile</RouterLink>
+      </span>
+    </nav>
   </header>
 
   <RouterView />
@@ -47,11 +42,6 @@ const currentUser = computed(() => store.getters.currentUser)
 .logo {
   width: 50px;
   height: 50px;
-}
-
-.wrapper {
-  display: flex;
-  align-items: center;
 }
 
 .nav {
