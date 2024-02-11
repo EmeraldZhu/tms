@@ -30,6 +30,11 @@ const currentUser = computed(() => store.getters.currentUser)
 </template>
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .header {
   display: flex;
   justify-content: space-between;
