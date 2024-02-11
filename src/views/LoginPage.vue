@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useStore } from 'vuex';
