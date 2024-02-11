@@ -32,7 +32,7 @@ const error = ref(null);
 const login = async () => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-        store.commit('setUser', userCredential.store);
+        store.commit('setUser', userCredential.user);
         router.push('/'); // redirect to home page
     } catch (error) {
         error.value = error.message;
