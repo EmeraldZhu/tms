@@ -16,35 +16,26 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
-const auth = getAuth;
+const auth = getAuth();
 const store = useStore(); // access Vuex store
 const router = useRouter(); // access vue-router
 
-export default {
-    data() {
-        return {
-            email: '',
-            password: '',
-            error: null
-        };
-    },
-    methods: {
-        async login() {
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
+const email = ref('');
+const password = ref('');
+const error = ref(null);
 
-                // Handle successful login (store user state, redirect to home page)
-                store.commit('setUser', userCredential.user)
-                router.push('/') // redirect to home page
-                // console.log('Logged in successfully:', userCredential.user); 
-            } catch (error) {
-                this.error = error.message;
-            }
-        }
+const login = async () => {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        store.commit('setUser', userCredential.store);
+        router.push('/'); // redirect to home page
+    } catch (error) {
+        error.value = error.message;
     }
-}
+};
 </script>
