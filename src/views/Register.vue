@@ -21,7 +21,7 @@ const auth = getAuth();
 export default {
     setup() {
         const email = ref('');
-        const passsword = ref('');
+        const password = ref('');
         const error = ref(null);
 
         const register = async () => {
@@ -37,7 +37,7 @@ export default {
 
         return {
             email,
-            passsword,
+            password,
             error,
             register
         };
