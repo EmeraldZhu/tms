@@ -7,7 +7,7 @@
             </div>
             <input type="email" v-model="email" placeholder="Email" class="input" name="email" autocomplete="email">
             <div class="password-container">
-                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input" name="password" autocomplete="current-password">
+                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input password" name="password" autocomplete="current-password">
                 <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
@@ -72,10 +72,13 @@ const login = async () => {
 .input {
     margin-bottom: 10px;
     padding: 10px;
-    padding-right: 120px; /* to make room for eye icon */
     border-radius: 5px;
     border: 1px solid #ccc;
     font-family: Arial, Helvetica, sans-serif; /* ensure consistent font */
+}
+
+.input.password {
+    padding-right: 120px; /* to make room for eye icon */
 }
 
 .password-container {
