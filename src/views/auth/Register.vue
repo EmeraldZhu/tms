@@ -11,6 +11,11 @@
                 <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
+            <select v-model="role" class="" name="role">
+                <option disabled value="">Select Role</option>
+                <option value="landlord">Landlord</option>
+                <option value="tenant">Tenant</option>
+            </select>
             <button type="submit" class="button">Register</button>
         </form>
     </div>
