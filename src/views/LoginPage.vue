@@ -7,7 +7,7 @@
             </div>
             <input type="email" v-model="email" placeholder="Email" class="input" name="email" autocomplete="email">
             <div class="password-container">
-                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input" name="password" autocomplete="password">
+                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input" name="password" autocomplete="current-password">
                 <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
