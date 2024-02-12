@@ -1,8 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDOeK4LyCIdrUTF-BOzJaGjkq3nQxGhL_o",
@@ -19,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 // Initialize Firebase Auth and get a reference to the service
 const auth = getAuth(app);
 
-// export const db = firebase.firestore()
-// export const auth = firebase.auth()
+// Initialize Firestore
+const db = getFirestore(app);
 
-export { auth }
+export { auth, db }
