@@ -52,7 +52,7 @@ const router = createRouter({
 })
 
 // navigation guard to check authentication
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // check if route requires auth
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   // if route requires auth & user is authenticated
