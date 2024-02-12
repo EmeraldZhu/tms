@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '../firebase'
-import LoginPage from '../views/LoginPage.vue' // Import from views folder
-import Register from '../views/Register.vue'
+import LoginPage from '../views/auth/LoginPage.vue' // Import from views folder
+import Register from '../views/auth/Register.vue'
 
 // protected route
 import HomeView from '../views/HomeView.vue'
