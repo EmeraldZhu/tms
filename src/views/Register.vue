@@ -52,7 +52,9 @@ export default {
             password,
             error,
             register,
-            showPassword
+            showPassword,
+            EyeOpen,
+            EyeClosed
         };
     }
 }
