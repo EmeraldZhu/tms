@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
+import { useStore } from 'vuex'
 import LoginPage from '../views/auth/LoginPage.vue' // Import from views folder
 import Register from '../views/auth/Register.vue'
 import LandlordDashboard from '../views/landlord/Dashboard.vue'
@@ -54,10 +55,19 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   // check if route requires auth
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  // if route requires auth & user is not authenticated
-  // redirect to login page
-  if (requiresAuth && !auth.currentUser) {
-    next('/login') // redirect to login if not authenticatrd
+  // if route requires auth & user is authenticated
+  if (requiresAuth && auth.currentUser) {
+    const store = useStore(); // access Vuex Store
+    await store.dispatch('fetchUserRole', auth.currentUser); // fetch user role
+
+    // redirect user based on role
+    if (store.state.role === 'landlord') {
+      next('/landlord-dashboard');
+    } else if (store.state.role === 'tenant') {
+      next('/tenant-dashboard');
+    }
+  } else if (requiresAuth && !auth.currentUser) {
+      next('/login') // redirect to login if not authenticatrd
   } else {
     // otherwise, continue to requested route
     next();
