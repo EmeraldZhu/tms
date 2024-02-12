@@ -42,6 +42,7 @@ const routes = [
   }
 ]
 
+// create router instance
 const router = createRouter({
   // use html5 history mode
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,11 +52,17 @@ const router = createRouter({
 
 // navigation guard to check authentication
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !auth.currentUser) {
+  // check if route requires auth
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  // if route requires auth & user is not authenticated
+  // redirect to login page
+  if (requiresAuth && !auth.currentUser) {
     next('/login') // redirect to login if not authenticatrd
   } else {
+    // otherwise, continue to requested route
     next();
   }
 })
 
+// export router instance
 export default router
