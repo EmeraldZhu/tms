@@ -119,6 +119,15 @@ export default {
     height: 30px;
 }
 
+/* style for user role dropdown */
+select {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .button {
     padding: 10px;
     border-radius: 5px;
