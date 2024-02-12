@@ -8,7 +8,8 @@
             <input type="email" v-model="email" placeholder="Email" class="input">
             <div class="password-container">
                 <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input">
-                <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span>
+                <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
+                <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
             <button type="submit" class="button">Login</button>
         </form>
@@ -23,6 +24,9 @@ import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+
+import EyeOpen from '@/assets/eye-open.svg';
+import EyeClosed from '@/assets/eye-closed.svg';
 
 const auth = getAuth();
 const store = useStore(); // access Vuex store
@@ -83,6 +87,8 @@ const login = async () => {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    width: 30px;
+    height: 30px;
 }
 
 .button {
