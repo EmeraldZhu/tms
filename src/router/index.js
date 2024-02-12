@@ -22,7 +22,7 @@ const router = createRouter({
     // add register router
     {
       path: '/register',
-      component: () => import('../views/Register.vue')
+      component: () => import('../views/auth/Register.vue')
     },
     // protected route with requiresAuth flag
     {
