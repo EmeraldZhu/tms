@@ -84,6 +84,7 @@ export default {
 .input {
     margin-bottom: 10px;
     padding: 10px;
+    padding-right: 120px; /* make room for eye icon */
     border-radius: 5px;
     border: 1px solid #ccc;
     font-family: Arial, Helvetica, sans-serif; /* ensure consistent font */
