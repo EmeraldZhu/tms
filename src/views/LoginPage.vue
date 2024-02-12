@@ -6,7 +6,10 @@
                 <p>{{ error }}</p>
             </div>
             <input type="email" v-model="email" placeholder="Email" class="input">
-            <input type="password" v-model="password" placeholder="Password" class="input">
+            <div class="password-container">
+                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input">
+                <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span>
+            </div>
             <button type="submit" class="button">Login</button>
         </form>
         <p class="register-link">
@@ -28,6 +31,7 @@ const router = useRouter(); // access vue-router
 const email = ref('');
 const password = ref('');
 const error = ref(null);
+const showPassword = ref(false); // new state for toggling password visibility
 
 const login = async () => {
     try {
@@ -66,6 +70,19 @@ const login = async () => {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    font-family: Arial, Helvetica, sans-serif; /* ensure consistent font */
+}
+
+.password-container {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 .button {
