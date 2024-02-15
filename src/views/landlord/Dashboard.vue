@@ -64,3 +64,44 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #ff9966, #ff5e62);
+  font-family: Arial, sans-serif;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.signup-link {
+  margin-top: 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.toast {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  background-color: #007BFF;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+</style>
