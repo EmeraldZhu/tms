@@ -63,7 +63,7 @@ export default {
         return {
             email,
             password,
-            role,
+            // role,
             error,
             register,
             showPassword,
