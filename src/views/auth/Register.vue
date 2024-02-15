@@ -54,7 +54,7 @@ export default {
 
                 // Handle successful registration (store user state, redirect to home page)
                 store.commit('setUser', userCredential.user);
-                router.push('/'); // redirect to home page
+                router.push('/'); // redirect to login
             } catch (err) {
                 error.value = err.message;
             }
