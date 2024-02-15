@@ -84,6 +84,13 @@ export default {
   border-radius: 10px;
   background: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  gap: 20px;
+}
+
+.form input,
+.form select,
+.form button {
+  height: 40px; /* increase height of form elements */
 }
 
 .signup-link {
