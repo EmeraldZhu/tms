@@ -38,7 +38,7 @@ export default {
     setup() {
         const email = ref('');
         const password = ref('');
-        const role = ref('');
+        // const role = ref('');
         const error = ref(null);
         const showPassword = ref(false); // new state for toggling password visibility
         const store = useStore(); // access Vuex Store
@@ -47,9 +47,11 @@ export default {
         const register = async () => {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-                await setDoc(doc(db, 'users', userCredential.user.uid), {
-                    role: role.value,
-                });
+                // no need to save role as it's known (landlord)
+                // await setDoc(doc(db, 'users', userCredential.user.uid), {
+                //     role: role.value,
+                // });
+
                 // Handle successful registration (store user state, redirect to home page)
                 store.commit('setUser', userCredential.user);
                 router.push('/'); // redirect to home page
