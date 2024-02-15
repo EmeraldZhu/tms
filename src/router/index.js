@@ -29,6 +29,12 @@ const routes = [
     component: Register
   },
   {
+    // route for invitee register page
+    path: '/invitee-register',
+    name: 'InviteeRegister',
+    component: InviteeRegister
+  },
+  {
     // route for landlord dashboard
     // requires auth
     path: '/landlord-dashboard',
@@ -53,13 +59,13 @@ const router = createRouter({
 })
 
 // navigation guard to check authentication
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, from, next) => {
   // check if route requires auth
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   // if route requires auth & user is authenticated
   if (requiresAuth && auth.currentUser) {
     const store = useStore(); // access Vuex Store
-    await store.dispatch('fetchUserRole', auth.currentUser); // fetch user role
+    // await store.dispatch('fetchUserRole', auth.currentUser);
 
     // redirect user based on role
     if (store.state.role === 'landlord') {
