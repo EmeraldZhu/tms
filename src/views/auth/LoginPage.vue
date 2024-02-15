@@ -42,8 +42,25 @@ const showPassword = ref(false); // new state for toggling password visibility
 const login = async () => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
-        store.commit('setUser', userCredential.user);
-        router.push('/home'); // redirect to home page
+        const docSnap = await getDoc(doc(db, 'users', userCredential.user.uid));
+
+        if (docSnap.exists()) {
+            store.commit('setUser', userCredential.user);
+            store.commit('setRole', docSnap.data().role); // set role in Vuex store
+
+            // redirect based on role
+            if (docSnap.data().role === 'landlord') {
+                router.push('/landlord-dashboard');
+            } else if (docSnap.data().role === 'tenant') {
+                router.push('/tenant-dashboard');
+            } else if (docSnap.data().role === 'caretaker') {
+                router.push('/caretaker-dashboard');
+            }
+        } else {
+            // Handle error
+        }
+        // store.commit('setUser', userCredential.user);
+        // router.push('/home');
     } catch (error) {
         error.value = error.message;
     }
