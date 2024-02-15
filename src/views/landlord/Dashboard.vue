@@ -22,7 +22,7 @@
     <!-- Toast Notification -->
     <div v-if="showToast" class="toast">
         <div class="toast-progress" :style="{ width: toastProgress + '%' }"></div>
-        <p>Invitation link sent!</p>
+        <p>{{ toastMessage }}</p>
     </div>
 </div>
 </template>
@@ -39,6 +39,7 @@ export default {
         const signupLink = ref(''); // new ref for signup link
         const showToast = ref(false); // new ref for showing toast notif
         const toastProgress = ref(100); // new ref for toast progress
+        const toastMessage = ref(''); // new ref for toast message
 
         const sendInvitation = async () => {
             const docRef = await addDoc(collection(db, 'invitations'), {
@@ -51,9 +52,7 @@ export default {
 
             // show toast notif
             showToast.value = true;
-            // setTimeout(() => {
-            //     showToast.value = false;
-            // }, 3000);
+            toastMessage.value = 'Invitation link sent!';
             let intervalId = setInterval(() => {
                 toastProgress.value -= 1;
                 if (toastProgress.value <= 0) {
@@ -66,6 +65,17 @@ export default {
 
         const copyLink = () => {
             navigator.clipboard.writeText(signupLink.value);
+            // show toast notif
+            showToast.value = true;
+            toastMessage.value = 'Link copied!';
+            let intervalId = setInterval(() => {
+                toastProgress.value -= 1;
+                if (toastProgress.value <= 0) {
+                    clearInterval(intervalId);
+                    showToast.value = false;
+                    toastProgress.value = 100;
+                }
+            }, 30);
         };
 
         return {
@@ -76,6 +86,7 @@ export default {
             showToast,
             toastProgress,
             copyLink,
+            toastMessage,
         };
     },
 };
