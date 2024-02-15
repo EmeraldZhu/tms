@@ -40,6 +40,7 @@ export default {
         const router = useRouter(); // access Vue Router
 
         onMounted(async () => {
+            try {
             const docSnap = await getDoc(doc(db, 'invitations', route.query.id));
 
             if (docSnap.exists()) {
@@ -47,7 +48,11 @@ export default {
                 role.value = docSnap.data().role;
             } else {
                 // Handle invitation link
+                error.value = 'Invalid invitation link'
             }
+        } catch (err) {
+            error.value = 'Error getting invitation: ' + err.message;
+        }
         });
 
         const register = async () => {
