@@ -27,4 +27,54 @@ import EyeOpen from '@/assets/eye-open.svg';
 import EyeClosed from '@/assets/eye-closed.svg';
 
 const auth = getAuth();
+
+export default {
+    setup() {
+        const route = useRoute();
+        const email = ref('');
+        const password = ref('');
+        const role = ref(null);
+        const error = ref(null);
+        const showPassword = ref(false); // new state for toggling password visibility
+        const store = useStore(); // access Vuex Store
+        const router = useRouter(); // access Vue Router
+
+        onMounted(async () => {
+            const docSnap = await getDoc(doc(db, 'invitations', route.query.id));
+
+            if (docSnap.exists()) {
+                email.value = docSnap.data().email;
+                role.value = docSnap.data().role;
+            } else {
+                // Handle invitation link
+            }
+        });
+
+        const register = async () => {
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+                await setDoc(doc(db, 'users', userCredential.user.uid), {
+                    role: role.value,
+                });
+                await deleteDoc(doc(db, 'invitations', route.query.id));
+
+                // handle successful registration (store user state, redir to home page)
+                store.commit('setUser', userCredential.user);
+                router.push('/'); // redirect to home page
+            } catch (err) {
+                error.value = err.message;
+            }
+        };
+
+        return {
+            email,
+            password,
+            error,
+            register,
+            showPassword,
+            EyeOpen,
+            EyeClosed
+        };
+    }
+}
 </script>
