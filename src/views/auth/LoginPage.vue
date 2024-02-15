@@ -24,6 +24,8 @@ import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '@/firebase';
 
 import EyeOpen from '@/assets/eye-open.svg';
 import EyeClosed from '@/assets/eye-closed.svg';
