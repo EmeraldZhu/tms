@@ -12,6 +12,10 @@
         </select>
         <button type="submit">Send Invitation</button>
     </form>
+    <div v-if="signupLink" class="signup-link">
+        <p>Send this signup link to the invitee:</p>
+        <p>{{ signupLink }}</p>   
+    </div>
 </div>
 </template>
 
@@ -24,6 +28,7 @@ export default {
     setup() {
         const inviteeEmail = ref('');
         const inviteeRole = ref('');
+        const signupLink = ref(''); // new ref for signup link
 
         const sendInvitation = async () => {
             const docRef = await addDoc(collection(db, 'invitations'), {
@@ -32,12 +37,14 @@ export default {
             });
 
             // send email to invitee with signup link that includes docRef.id
+            signupLink.value = `${window.location.origin}/invitee-register?id=${docRef.id}`;
         };
 
         return {
             inviteeEmail,
             inviteeRole,
             sendInvitation,
+            signupLink,
         };
     },
 };
