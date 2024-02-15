@@ -14,20 +14,21 @@
     </form>
 
     <!-- Signup Link Message -->
-    <div v-if="signupLink" class="signup-link">
+    <div v-if="signupLink" class="signup-link" @click="copyLink">
         <p>Send this signup link to the invitee:</p>
         <p>{{ signupLink }}</p>   
     </div>
 
     <!-- Toast Notification -->
     <div v-if="showToast" class="toast">
+        <div class="toast-progress" :style="{ width: toastProgress + '%' }"></div>
         <p>Invitation link sent!</p>
     </div>
 </div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebase';
 
@@ -37,6 +38,7 @@ export default {
         const inviteeRole = ref('');
         const signupLink = ref(''); // new ref for signup link
         const showToast = ref(false); // new ref for showing toast notif
+        const toastProgress = ref(100); // new ref for toast progress
 
         const sendInvitation = async () => {
             const docRef = await addDoc(collection(db, 'invitations'), {
@@ -49,9 +51,21 @@ export default {
 
             // show toast notif
             showToast.value = true;
-            setTimeout(() => {
-                showToast.value = false;
-            }, 3000);
+            // setTimeout(() => {
+            //     showToast.value = false;
+            // }, 3000);
+            let intervalId = setInterval(() => {
+                toastProgress.value -= 1;
+                if (toastProgress.value <= 0) {
+                    clearInterval(intervalId);
+                    showToast.value = false;
+                    toastProgress.value = 100;
+                }
+            }, 30);
+        };
+
+        const copyLink = () => {
+            navigator.clipboard.writeText(signupLink.value);
         };
 
         return {
@@ -60,6 +74,8 @@ export default {
             sendInvitation,
             signupLink,
             showToast,
+            toastProgress,
+            copyLink,
         };
     },
 };
@@ -99,16 +115,26 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  cursor: pointer;
 }
 
 .toast {
   position: fixed;
   bottom: 1em;
   right: 1em;
+  width: 200px; /* make it narrower */
   padding: 1em;
   border-radius: 5px;
   background-color: #007BFF;
   color: white;
   transition: opacity 0.3s ease;
+}
+
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 </style>
