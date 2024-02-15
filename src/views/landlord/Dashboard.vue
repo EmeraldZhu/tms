@@ -14,3 +14,31 @@
     </form>
 </div>
 </template>
+
+<script>
+import { ref } from 'vue';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebase';
+
+export default {
+    setup() {
+        const inviteeEmail = ref('');
+        const inviteeRole = ref('');
+
+        const sendInvitation = async () => {
+            const docRef = await addDoc(collection(db, 'invitations'), {
+                email: inviteeEmail.value,
+                role: inviteeRole.value,
+            });
+
+            // send email to invitee with signup link that includes docRef.id
+        };
+
+        return {
+            inviteeEmail,
+            inviteeRole,
+            sendInvitation,
+        };
+    },
+};
+</script>
