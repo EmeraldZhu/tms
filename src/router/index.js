@@ -68,10 +68,12 @@ router.beforeEach((to, from, next) => {
     // await store.dispatch('fetchUserRole', auth.currentUser);
 
     // redirect user based on role
-    if (store.state.role === 'landlord') {
+    if (store.state.role === 'landlord' && to.path !== '/landlord-dashboard') {
       next('/landlord-dashboard');
-    } else if (store.state.role === 'tenant') {
+    } else if (store.state.role === 'tenant' && to.path !== '/tenant-dashboard') {
       next('/tenant-dashboard');
+    } else {
+      next();
     }
   } else if (requiresAuth && !auth.currentUser) {
       next('/login') // redirect to login if not authenticatrd
