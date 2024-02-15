@@ -47,10 +47,10 @@ export default {
         const register = async () => {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
-                // no need to save role as it's known (landlord)
-                // await setDoc(doc(db, 'users', userCredential.user.uid), {
-                //     role: role.value,
-                // });
+                // set role to (landlord)
+                await setDoc(doc(db, 'users', userCredential.user.uid), {
+                    role: 'landlord',
+                });
 
                 // Handle successful registration (store user state, redirect to home page)
                 store.commit('setUser', userCredential.user);
