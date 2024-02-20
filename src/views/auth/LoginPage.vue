@@ -5,9 +5,21 @@
             <div v-if="error" class="error">
                 <p>{{ error }}</p>
             </div>
-            <input type="email" v-model="email" :class="{'input-error': submitted && !email}" placeholder="Email" class="input" name="email" autocomplete="email">
+            <input type="email"
+                   v-model="email"
+                   :class="{'input-error': submitted && !email}"
+                   placeholder="Email"
+                   class="input"
+                   name="email"
+                   autocomplete="email">
             <div class="password-container">
-                <input :type="showPassword ? 'text' : 'password'" v-model="password" :class="{'input-error': submitted && !password}" placeholder="Password" class="input password" name="password" autocomplete="current-password">
+                <input :type="showPassword ? 'text' : 'password'"
+                       v-model="password"
+                       :class="{'input-error': submitted && !password}"
+                       placeholder="Password"
+                       class="input password"
+                       name="password"
+                       autocomplete="current-password">
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
             <button type="submit" class="button" :disabled="loading">
@@ -44,14 +56,15 @@ const loading = ref(false); // manage loading state
 const submitted = ref(false); // New state to track if the form has been submitted
 
 const login = async () => {
+    submitted.value = true; // Mark the form as submitted to trigger validations
+    error.value = ''; // Reset error message before attempting to log in
+
     if (!email.value || !password.value) {
         error.value = "Please fill in all fields.";
         return;
     }
 
     loading.value = true;
-    error.value = ''; // Reset error message before attempting to log in
-    submitted.value = true; // Mark the form as submitted to trigger validations
 
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
