@@ -11,7 +11,10 @@
                 <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
-            <button type="submit" class="button">Login</button>
+            <button type="submit" class="button" :disabled="loading">
+                <div v-if="loading" class="loader"></div>
+                <span v-else>Login</span>
+            </button>
         </form>
         <p class="register-link">
             Don't have an account? <RouterLink to="/register">Register</RouterLink>
@@ -38,8 +41,10 @@ const email = ref('');
 const password = ref('');
 const error = ref(null);
 const showPassword = ref(false); // new state for toggling password visibility
+const loading = ref(false); // manage loading state
 
 const login = async () => {
+    loading.value = true; // enable loading state
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         const docSnap = await getDoc(doc(db, 'users', userCredential.user.uid));
@@ -61,8 +66,10 @@ const login = async () => {
         }
         // store.commit('setUser', userCredential.user);
         // router.push('/home');
+        loading.value = false; // disable loading after process
     } catch (error) {
         error.value = error.message;
+        loading.value = false; // ensure loading is disabled in case of error
     }
 };
 </script>
@@ -115,6 +122,9 @@ const login = async () => {
 }
 
 .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -136,5 +146,27 @@ const login = async () => {
 .register-link {
     margin-top: 10px;
     text-align: center;
+}
+
+.loader {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #ffffff; /* Change the color as needed */
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.button:disabled {
+    background-color: #007BFF;
+    opacity: 0.5;
+    cursor: default;
 }
 </style>
