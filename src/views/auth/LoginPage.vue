@@ -5,10 +5,9 @@
             <div v-if="error" class="error">
                 <p>{{ error }}</p>
             </div>
-            <input type="email" v-model="email" placeholder="Email" class="input" name="email" autocomplete="email">
+            <input type="email" v-model="email" :class="{'input-error': submitted && !email}" placeholder="Email" class="input" name="email" autocomplete="email">
             <div class="password-container">
-                <input :type="showPassword ? 'text' : 'password'" v-model="password" placeholder="Password" class="input password" name="password" autocomplete="current-password">
-                <!-- <span class="eye-icon" @click="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</span> -->
+                <input :type="showPassword ? 'text' : 'password'" v-model="password" :class="{'input-error': submitted && !password}" placeholder="Password" class="input password" name="password" autocomplete="current-password">
                 <img :src="showPassword ? EyeOpen : EyeClosed" class="eye-icon" @click="showPassword = !showPassword">
             </div>
             <button type="submit" class="button" :disabled="loading">
@@ -39,12 +38,21 @@ const router = useRouter(); // access vue-router
 
 const email = ref('');
 const password = ref('');
-const error = ref(null);
+const error = ref(''); // initialized with empty string for consistency
 const showPassword = ref(false); // new state for toggling password visibility
 const loading = ref(false); // manage loading state
+const submitted = ref(false); // New state to track if the form has been submitted
 
 const login = async () => {
-    loading.value = true; // enable loading state
+    if (!email.value || !password.value) {
+        error.value = "Please fill in all fields.";
+        return;
+    }
+
+    loading.value = true;
+    error.value = ''; // Reset error message before attempting to log in
+    submitted.value = true; // Mark the form as submitted to trigger validations
+
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
         const docSnap = await getDoc(doc(db, 'users', userCredential.user.uid));
@@ -63,13 +71,12 @@ const login = async () => {
             }
         } else {
             // Handle error
+            error.value = "Login failed. Please try again.";
         }
-        // store.commit('setUser', userCredential.user);
-        // router.push('/home');
-        loading.value = false; // disable loading after process
-    } catch (error) {
-        error.value = error.message;
-        loading.value = false; // ensure loading is disabled in case of error
+    } catch (err) {
+        error.value = "Failed to log in. Please check your credentials and try again.";
+    } finally {
+        loading.value = false;
     }
 };
 </script>
@@ -168,5 +175,9 @@ const login = async () => {
     background-color: #007BFF;
     opacity: 0.5;
     cursor: default;
+}
+
+.input-error {
+    border: 2px solid red;
 }
 </style>
