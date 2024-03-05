@@ -18,6 +18,10 @@
   </template>
   
   <script>
+  import HomeIcon from '@/assets/home-icon.svg';
+  import DashboardIcon from '@/assets/dashboard-icon.svg';
+  import PropertiesIcon from '@/assets/properties-icon.svg';
+
   export default {
     name: 'NavigationPanel',
     data() {
@@ -25,9 +29,9 @@
         navigationItems: [
           // These items will be dynamically generated based on user role
           // This is sample data for demonstration purposes
-          { icon: require('@/assets/home-icon.svg'), label: 'Home', path: '/home' },
-          { icon: require('@/assets/dashboard-icon.svg'), label: 'Dashboard', path: '/dashboard' },
-          { icon: require('@/assets/properties-icon.svg'), label: 'Properties', path: '/properties' },
+          { icon: HomeIcon, label: 'Home', path: '/home' },
+          { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
+          { icon: PropertiesIcon, label: 'Properties', path: '/properties' },
           // ... other navigation items
         ],
       };
