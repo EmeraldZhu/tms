@@ -4,9 +4,10 @@ import { useStore } from 'vuex'
 import LoginPage from '../views/auth/LoginPage.vue'
 import Register from '../views/auth/Register.vue'
 import DashboardWrapper from '@/components/DashboardWrapper.vue';
-import LandlordDashboard from '../views/landlord/Dashboard.vue'
-import TenantDashboard from '../views/tenant/Dashboard.vue'
-import InviteeRegister from '../views/auth/InviteeRegister.vue'
+import LandlordDashboard from '../views/landlord/Dashboard.vue';
+import InviteForm from '@/views/landlord/InviteForm.vue';
+import TenantDashboard from '../views/tenant/Dashboard.vue';
+import InviteeRegister from '../views/auth/InviteeRegister.vue';
 
 const routes = [
   {
@@ -62,6 +63,16 @@ const routes = [
         component: TenantDashboard,
         meta: { requiresAuth: true, role: 'tenant' },
       }
+    ]
+  },
+  {
+    path: '/dashboard/landlord',
+    component: DashboardWrapper,
+    children: [
+      {
+        path: 'invites',
+        component: InviteForm,
+      },
     ]
   }
 ]
