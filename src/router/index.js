@@ -8,9 +8,6 @@ import LandlordDashboard from '../views/landlord/Dashboard.vue'
 import TenantDashboard from '../views/tenant/Dashboard.vue'
 import InviteeRegister from '../views/auth/InviteeRegister.vue'
 
-// protected route
-import HomeView from '../views/HomeView.vue'
-
 const routes = [
   {
     // redirect root path to login page
