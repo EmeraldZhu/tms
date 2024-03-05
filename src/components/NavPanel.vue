@@ -21,6 +21,7 @@
   import HomeIcon from '@/assets/home-icon.svg';
   import DashboardIcon from '@/assets/dashboard-icon.svg';
   import PropertiesIcon from '@/assets/properties-icon.svg';
+  import InviteIcon from '@/assets/invite-icon.svg';
 
   export default {
     name: 'NavigationPanel',
@@ -32,6 +33,7 @@
           { icon: HomeIcon, label: 'Home', path: '/home' },
           { icon: DashboardIcon, label: 'Dashboard', path: '/dashboard' },
           { icon: PropertiesIcon, label: 'Properties', path: '/properties' },
+          { icon: InviteIcon, label: 'Invites', path: '/dashboard/landlord/invites' },
           // ... other navigation items
         ],
       };
