@@ -58,6 +58,7 @@ const routes = [
       {
         path: 'invites',
         component: InviteForm,
+        meta: { requiresAuth: true, role: 'landlord' },
       },
     ]
   }
