@@ -91,9 +91,9 @@ const login = async () => {
 function redirectToDashboard(role)
 {
     if (role === 'landlord')
-        router.push('/landlord');
+        router.push('/dashboard/landlord');
     else if (role === 'tenant')
-        router.push('/tenant');
+        router.push('/dashboard/tenant');
     else if (role === 'caretaker')
         router.push('/caretaker-dashboard');
 }
