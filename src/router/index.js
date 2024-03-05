@@ -41,7 +41,15 @@ const routes = [
         path: 'landlord',
         name: 'LandlordDashboard',
         component: LandlordDashboard,
-        meta: { requiresAuth: true, role: 'landlord' },
+        meta: { requiresAuth: true, },
+        children: [
+          {
+            path: 'invites',
+            name: 'InviteForm',
+            component: InviteForm,
+            meta: { requiresAuth: true, requiresRole: 'landlord' },
+          }
+        ]
       },
       {
         path: 'tenant',
@@ -51,17 +59,6 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/dashboard/landlord',
-    component: DashboardWrapper,
-    children: [
-      {
-        path: 'invites',
-        component: InviteForm,
-        meta: { requiresAuth: true, role: 'landlord' },
-      },
-    ]
-  }
 ]
 
 // create router instance
@@ -73,29 +70,28 @@ const router = createRouter({
 })
 
 // navigation guard to check authentication
-router.beforeEach((to, from, next) => {
-  // check if route requires auth
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  // if route requires auth & user is authenticated
-  if (requiresAuth && auth.currentUser) {
-    const store = useStore(); // access Vuex Store
-    // await store.dispatch('fetchUserRole', auth.currentUser);
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresRole = to.meta.requiresRole;
+  const store = useStore();
 
-    // redirect user based on role
-    if (store.state.role === 'landlord' && to.path !== '/dashboard/landlord') {
-      next('/dashboard/landlord');
-    } else if (store.state.role === 'tenant' && to.path !== '/dashboard/tenant') {
-      next('/dashboard/tenant');
+  if (requiresAuth && !auth.currentUser) {
+    next('/login'); // Redirect to login if not authenticated
+  } else if (requiresAuth && auth.currentUser && requiresRole) {
+    // Fetch user role from Vuex store
+    // Note: Ensure the user's role is being fetched/set during the authentication process
+    const userRole = store.state.role;
+    
+    if (userRole === requiresRole) {
+      next(); // User has the required role, proceed
     } else {
-      next();
+      next(from.path); // Redirect to previous page or a default page if user doesn't have required role
     }
-  } else if (requiresAuth && !auth.currentUser) {
-      next('/login') // redirect to login if not authenticatrd
   } else {
-    // otherwise, continue to requested route
-    next();
+    next(); // Proceed if no specific role is required
   }
-})
+});
+
 
 // export router instance
 export default router
