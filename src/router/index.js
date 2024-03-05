@@ -33,20 +33,6 @@ const routes = [
     name: 'InviteeRegister',
     component: InviteeRegister
   },
-  // {
-  //   // route for landlord dashboard
-  //   // requires auth
-  //   path: '/landlord-dashboard',
-  //   name: 'LandlordDashboard',
-  //   component: LandlordDashboard,
-  //   meta: { requiresAuth: true }
-  // },
-  // {
-  //   path: '/tenant-dashboard',
-  //   name: 'TenantDashboard',
-  //   component: TenantDashboard,
-  //   meta: { requiresAuth: true }
-  // },
   {
     path: '/dashboard',
     component: DashboardWrapper,
