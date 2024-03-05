@@ -72,17 +72,17 @@ const router = createRouter({
 // navigation guard to check authentication
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const requiresRole = to.meta.requiresRole;
+  const requiredRole = to.matched.some(record => record.meta.requiresRole) ? to.matched.find(record => record.meta.requiresRole).meta.requiresRole : null;
   const store = useStore();
 
   if (requiresAuth && !auth.currentUser) {
     next('/login'); // Redirect to login if not authenticated
-  } else if (requiresAuth && auth.currentUser && requiresRole) {
+  } else if (requiresAuth && auth.currentUser && requiredRole) {
     // Fetch user role from Vuex store
     // Note: Ensure the user's role is being fetched/set during the authentication process
     const userRole = store.state.role;
     
-    if (userRole === requiresRole) {
+    if (userRole === requiredRole) {
       next(); // User has the required role, proceed
     } else {
       next(from.path); // Redirect to previous page or a default page if user doesn't have required role
