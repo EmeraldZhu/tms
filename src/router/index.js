@@ -3,6 +3,7 @@ import { auth, db } from '../firebase'
 import { useStore } from 'vuex'
 import LoginPage from '../views/auth/LoginPage.vue'
 import Register from '../views/auth/Register.vue'
+import DashboardWrapper from '@/components/DashboardWrapper.vue';
 import LandlordDashboard from '../views/landlord/Dashboard.vue'
 import TenantDashboard from '../views/tenant/Dashboard.vue'
 import InviteeRegister from '../views/auth/InviteeRegister.vue'
@@ -34,19 +35,37 @@ const routes = [
     name: 'InviteeRegister',
     component: InviteeRegister
   },
+  // {
+  //   // route for landlord dashboard
+  //   // requires auth
+  //   path: '/landlord-dashboard',
+  //   name: 'LandlordDashboard',
+  //   component: LandlordDashboard,
+  //   meta: { requiresAuth: true }
+  // },
+  // {
+  //   path: '/tenant-dashboard',
+  //   name: 'TenantDashboard',
+  //   component: TenantDashboard,
+  //   meta: { requiresAuth: true }
+  // },
   {
-    // route for landlord dashboard
-    // requires auth
-    path: '/landlord-dashboard',
-    name: 'LandlordDashboard',
-    component: LandlordDashboard,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/tenant-dashboard',
-    name: 'TenantDashboard',
-    component: TenantDashboard,
-    meta: { requiresAuth: true }
+    path: '/dashboard',
+    component: DashboardWrapper,
+    children: [
+      {
+        path: 'landlord',
+        name: 'LandlordDashboard',
+        component: LandlordDashboard,
+        meta: { requiresAuth: true, role: 'landlord' },
+      },
+      {
+        path: 'tenant',
+        name: 'TenantDashboard',
+        component: TenantDashboard,
+        meta: { requiresAuth: true, role: 'tenant' },
+      }
+    ]
   }
 ]
 
