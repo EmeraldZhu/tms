@@ -9,12 +9,12 @@
   </template>
   
   <script>
-  import NavigationPanel from '@/components/NavigationPanel.vue'; // Ensure the path is correct based on your project structure
+  import NavPanel from '@/components/NavPanel.vue'; // Ensure the path is correct based on your project structure
   
   export default {
     name: 'DashboardWrapper',
     components: {
-      NavigationPanel,
+      NavPanel,
     },
   };
   </script>
