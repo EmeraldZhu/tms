@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard-wrapper">
-      <NavigationPanel />
+      <NavPanel />
       <main class="dashboard-content">
         <!-- router-view will display the component based on the route -->
         <router-view />
