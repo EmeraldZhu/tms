@@ -75,13 +75,8 @@ const login = async () => {
             store.commit('setRole', docSnap.data().role); // set role in Vuex store
 
             // redirect based on role
-            if (docSnap.data().role === 'landlord') {
-                router.push('/landlord-dashboard');
-            } else if (docSnap.data().role === 'tenant') {
-                router.push('/tenant-dashboard');
-            } else if (docSnap.data().role === 'caretaker') {
-                router.push('/caretaker-dashboard');
-            }
+            const userRole = docSnap.data().role;
+            redirectToDashboard(userRole);
         } else {
             // Handle error
             error.value = "Login failed. Please try again.";
@@ -92,6 +87,16 @@ const login = async () => {
         loading.value = false;
     }
 };
+
+function redirectToDashboard(role)
+{
+    if (role === 'landlord')
+        router.push('/landlord-dashboard');
+    else if (role === 'tenant')
+        router.push('/tenant-dashboard');
+    else if (role === 'caretaker')
+        router.push('/caretaker-dashboard');
+}
 </script>
 
 <style scoped>
