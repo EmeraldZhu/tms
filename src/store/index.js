@@ -20,13 +20,17 @@ const store = createStore({
         }
     },
     actions: {
-        async fetchUserRole({ commit }, user) { // new action for fetching user role
-            const docSnap = await getDoc(doc(db, 'users', user.uid));
+        async fetchUserRole({ commit }, user) {
+            try {
+                const docSnap = await getDoc(doc(db, 'users', user.uid));
 
-            if (docSnap.exists()) {
-                commit('setRole', docSnap.data().role);
-            } else {
-                console.log('No such document!');
+                if (docSnap.exists()) {
+                    commit('setRole', docSnap.data().role);
+                } else {
+                    console.log('No such document!');
+                }
+            } catch (error) {
+                console.error('Error fetching user role:', error);
             }
         },
     },
