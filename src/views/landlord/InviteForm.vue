@@ -71,6 +71,8 @@ export default {
             }, 30);
         };
 
+        console.log('InviteForm component mounted');
+
         return {
             inviteeEmail,
             inviteeRole,
