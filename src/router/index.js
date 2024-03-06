@@ -92,6 +92,7 @@ router.beforeEach(async (to, from, next) => {
       next(); // User has the required role, proceed
     } else {
       console.log('Navigation Guard: User does not have required role, redirecting');
+      console.log('Navigation Guard: Current Route -', to.path);
       next(from.path); // Redirect to previous page or a default page if user doesn't have required role
     }
   } else {
