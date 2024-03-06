@@ -3,9 +3,9 @@ import { auth, db } from '../firebase'
 import { useStore } from 'vuex'
 import LoginPage from '../views/auth/LoginPage.vue'
 import Register from '../views/auth/Register.vue'
-import DashboardWrapper from '@/components/DashboardWrapper.vue';
+import DashboardWrapper from '../components/DashboardWrapper.vue';
 import LandlordDashboard from '../views/landlord/Dashboard.vue';
-import InviteForm from '@/views/landlord/InviteForm.vue';
+import InviteForm from '../views/landlord/InviteForm.vue';
 import TenantDashboard from '../views/tenant/Dashboard.vue';
 import InviteeRegister from '../views/auth/InviteeRegister.vue';
 
